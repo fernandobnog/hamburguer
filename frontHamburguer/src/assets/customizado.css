@@ -1,0 +1,61 @@
+/* padrão por  */
+body{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--surface-ground);
+  color:gainsboro
+}
+.placeholder {
+  color: #6c757d;
+  /* padding: 0 0.6rem; */
+  /* letter-spacing: 0.03rem; */
+  font-size: .875rem;
+}
+
+.btnME {
+  width: 180px;
+  height: 47px;
+  align-items: center;
+}
+
+.positivoTabela {
+  color: #c63737;
+  background-color: #ffcdd2;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.negativoTabela {
+  color: #256029;
+  background-color: #c8e6c9;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  text-align: center;
+  padding: 0.25rem;
+  padding-left: 1.0rem;
+  padding-right: 1.0rem;
+}
+
+.invalidoTabela {
+  color: #8a5340;
+  background-color: #feedaf;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  text-align: center;
+  padding: 0.25rem;
+  padding-left: 1.0rem;
+  padding-right: 1.0rem;
+}
+
+.positivoTexto {
+  color: red;
+}
+
+.negativoTexto {
+  color: rgb(0, 175, 0);
+}
+
+.invalidoTexto {
+  color: var(--yellow-400);
+}
