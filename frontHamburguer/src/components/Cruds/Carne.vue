@@ -76,7 +76,6 @@ export default defineComponent({
       this.carne.id = objEditar.id;
       this.carne.pesoGramas = objEditar.pesoGramas;
       this.carne.estoque = objEditar.estoque
-      console.log('objEditar:' + this.carne)
 
       await this.editarCarne(this.carne);
 

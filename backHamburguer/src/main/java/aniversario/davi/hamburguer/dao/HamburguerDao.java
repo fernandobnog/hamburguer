@@ -129,6 +129,12 @@ public class HamburguerDao {
 
         if(!hamburguer.getOpcionais().isEmpty()){
             for (Opcionais opcionais : hamburguer.getOpcionais()) {
+
+                if(opcionais.isTemQuantidade()){
+                    opcionais.setQuantidade(opcionais.getQuantidade()-1);
+                    new OpcionaisDao().editar(con, opcionais);
+                }
+
                 HamburguerOpcionais hm = new HamburguerOpcionais();
                 hm.setOpcionais(opcionais);
                 hm.setHamburguer(hamburguer);
@@ -462,11 +468,25 @@ public class HamburguerDao {
             hsd.inserir(con, hs);
         }
 
-        HamburguerOpcionaisDao hmd = new HamburguerOpcionaisDao();
-        hmd.excluirPorHamburguer(con, hamburguer.getId());
-        List<Opcionais> listaMAtual = hamburguer.getOpcionais();
 
-        for(Opcionais opcionaisAtual : listaMAtual){
+
+        HamburguerOpcionaisDao hmd = new HamburguerOpcionaisDao();
+        for(Opcionais opcionaisVelho : hmd.listarOpcionaisPorHamburguer(con, hamburguer)){
+            if(opcionaisVelho.isTemQuantidade()){
+                opcionaisVelho.setQuantidade(opcionaisVelho.getQuantidade()+1);
+                new OpcionaisDao().editar(con, opcionaisVelho);
+            }
+        }
+
+        hmd.excluirPorHamburguer(con, hamburguer.getId());
+        List<Opcionais> listaOpAtual = hamburguer.getOpcionais();
+
+        for(Opcionais opcionaisAtual : listaOpAtual){
+
+            if(opcionaisAtual.isTemQuantidade()){
+                opcionaisAtual.setQuantidade(opcionaisAtual.getQuantidade()-1);
+                new OpcionaisDao().editar(con, opcionaisAtual);
+            }
 
             HamburguerOpcionais hm = new HamburguerOpcionais();
             hm.setOpcionais(opcionaisAtual);

@@ -8,6 +8,8 @@ export const opcionaisStore = defineStore('idOpcionaisStore', {
     opcionais: {
       id: 0,
       tipo: '',
+      quantidade: 0,
+      temQuantidade: false,
     },
 
     statusServer: {
@@ -33,6 +35,8 @@ export const opcionaisStore = defineStore('idOpcionaisStore', {
           return {
             id: opcionais.id,
             tipo: opcionais.tipo,
+            quantidade: opcionais.quantidade,
+            temQuantidade: opcionais.temQuantidade,
           }
         })
       } catch (error) {

@@ -46,17 +46,19 @@ public class OpcionaisDao {
 
     public Object inserir(Connection con, Opcionais opcionais) throws Exception {
 
-        Object duplicidade = ChecarDuplicidade.molho(con, opcionais);
+        Object duplicidade = ChecarDuplicidade.opcionais(con, opcionais);
         if(!duplicidade.equals("cadastrar")){
             return duplicidade;
         }
 
-        String sql = "INSERT INTO OPCIONAIS (TIPO) VALUES (?)";
+        String sql = "INSERT INTO OPCIONAIS (TIPO, QUANTIDADE, TEMQUANTIDADE) VALUES (?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             con.setAutoCommit(false);
 
             ps.setString(1, opcionais.getTipo());
+            ps.setInt(2, opcionais.getQuantidade());
+            ps.setBoolean(3, opcionais.isTemQuantidade());
             ps.execute();
 
             try(ResultSet tableKeys = ps.getGeneratedKeys()){
@@ -113,6 +115,8 @@ public class OpcionaisDao {
 
                         opcionais.setId(rs.getInt("ID"));
                         opcionais.setTipo(rs.getString("TIPO"));
+                        opcionais.setQuantidade(rs.getInt("QUANTIDADE"));
+                        opcionais.setTemQuantidade(rs.getBoolean("TEMQUANTIDADE"));
 
                         map.put(opcionais.getId(), opcionais);
                     }
@@ -150,13 +154,15 @@ public class OpcionaisDao {
 
     public Opcionais editar(Connection con, Opcionais opcionais) throws Exception {
 
-        String sql = "UPDATE OPCIONAIS SET TIPO=? WHERE ID=?";
+        String sql = "UPDATE OPCIONAIS SET TIPO=?, QUANTIDADE=?, TEMQUANTIDADE=? WHERE ID=?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             con.setAutoCommit(false);
 
             ps.setString(1, opcionais.getTipo());
-            ps.setInt(2, opcionais.getId());
+            ps.setInt(2, opcionais.getQuantidade());
+            ps.setBoolean(3, opcionais.isTemQuantidade());
+            ps.setInt(4, opcionais.getId());
             ps.execute();
 
         } catch (Exception ex) {

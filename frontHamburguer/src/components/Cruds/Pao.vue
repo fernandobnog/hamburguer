@@ -76,7 +76,6 @@ export default defineComponent({
       this.pao.id = objEditar.id;
       this.pao.tipo = objEditar.tipo;
       this.pao.estoque = objEditar.estoque;
-      console.log('objEditar:' + this.pao)
 
       await this.editarPao(this.pao);
 

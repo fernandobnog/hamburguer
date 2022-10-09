@@ -76,7 +76,6 @@ export default defineComponent({
       this.queijo.id = objEditar.id;
       this.queijo.tipo = objEditar.tipo;
       this.queijo.estoque = objEditar.estoque;
-      console.log('objEditar:' + this.queijo)
 
       await this.editarQueijo(this.queijo);
 

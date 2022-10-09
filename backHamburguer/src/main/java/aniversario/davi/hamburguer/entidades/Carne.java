@@ -1,6 +1,8 @@
 package aniversario.davi.hamburguer.entidades;
 
-public class Carne {
+import aniversario.davi.hamburguer.interfaces.Impressora;
+
+public class Carne implements Impressora {
     int id;
     int pesoGramas;
 
@@ -23,7 +25,7 @@ public class Carne {
     }
 
     public int getPesoGramas() {
-        return pesoGramas;
+        return pesoGramas ;
     }
 
     public void setPesoGramas(int pesoGramas) {

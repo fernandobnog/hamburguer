@@ -230,7 +230,6 @@ export default defineComponent({
         },
 
         detalhesPedido(obj) {
-          console.log(obj)
             this.stringOpcionais='';
             this.stringSaladas='';
             this.pedido.id = obj.id;

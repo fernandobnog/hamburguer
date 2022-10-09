@@ -130,52 +130,6 @@ public class HamburguerOpcionaisDao {
         return new ArrayList<>(map.values());
     }
 
-    public List<HamburguerOpcionais> listarMolhosPorHamburguerEOpcionais(Connection con, HamburguerOpcionais hm) throws Exception {
-
-        String sql = "SELECT * FROM HAMBURGUEROPCIONAIS\n" +
-                "join molho on idMolho = molho.id\n" +
-                "where idHamburguer = " + hm.getHamburguer().getId() + " && idOpcionais = " + hm.getOpcionais().getId();
-
-        Map<Integer, HamburguerOpcionais> map = new TreeMap<>();
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.execute();
-
-            try (ResultSet rs = ps.getResultSet()){
-                while (rs.next()) {
-                    int id = rs.getInt("ID");
-                    HamburguerOpcionais hamburguerOpcionais = map.get(id);
-                    if(hamburguerOpcionais == null){
-                        hamburguerOpcionais = new HamburguerOpcionais();
-
-                        Hamburguer hamburguer = new Hamburguer();
-                        hamburguer.setId(rs.getInt("IDHAMBURGUER"));
-
-                        Opcionais opcionais = new Opcionais();
-                        opcionais.setId(rs.getInt("IDOPCIONAIS"));
-
-                        hamburguerOpcionais.setId(rs.getInt("ID"));
-                        hamburguerOpcionais.setHamburguer(hamburguer);
-                        hamburguerOpcionais.setOpcionais(opcionais);
-
-                        map.put(hamburguerOpcionais.getId(), hamburguerOpcionais);
-                    }
-                }
-            } catch (Exception ex) {
-                String erro = "ResultSet - Erro ao listar " + NomeEntidade + ": " + ex;
-                System.err.println(erro);
-                throw new Exception(erro);
-            }
-        } catch (Exception ex) {
-            String erro = "PreparedStatement - Erro ao listar " + NomeEntidade + ": " + ex;
-            System.err.println(erro);
-            throw new Exception(erro);
-        }
-
-        return new ArrayList<>(map.values());
-    }
-
     public List<Opcionais> listarOpcionaisPorHamburguer(Connection con, Hamburguer hamburguer) throws Exception {
 
         String sql = "Select idOpcionais, opcionais.tipo\n" +

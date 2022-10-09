@@ -75,7 +75,6 @@ export default defineComponent({
       
       this.pessoa.id = objEditar.id;
       this.pessoa.nome = objEditar.nome;
-      console.log('objEditar:' + this.pessoa)
 
       await this.editarPessoa(this.pessoa);
 

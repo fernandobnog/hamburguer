@@ -61,7 +61,7 @@ public interface ChecarDuplicidade {
         return "cadastrar";
     }
 
-    static Object molho(Connection con, Opcionais opcionais) {
+    static Object opcionais (Connection con, Opcionais opcionais) {
         OpcionaisDao dao = new OpcionaisDao();
         Retorno retorno = new Retorno();
 

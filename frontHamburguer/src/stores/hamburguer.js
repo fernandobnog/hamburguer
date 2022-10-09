@@ -49,7 +49,6 @@ export const hamburguerStore = defineStore('idHamburguerStore', {
     },
 
     async salvarHamburguer() {
-      console.log(this.hamburguer)
       try {
         const res = await hamburguerService.insert(this.hamburguer);
         this.statusServer.status = res.data.status;

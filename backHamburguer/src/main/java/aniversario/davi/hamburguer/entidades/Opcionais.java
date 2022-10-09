@@ -4,12 +4,17 @@ public class Opcionais {
     int id;
     String tipo;
 
+    int quantidade;
+    boolean temQuantidade;
+
 
     public Opcionais() {}
 
-    public Opcionais(int id, String tipo) {
+    public Opcionais(int id, String tipo, int quantidade, boolean temQuantidade) {
         this.id = id;
         this.tipo = tipo;
+        this.quantidade = quantidade;
+        this.temQuantidade = temQuantidade;
     }
 
     public int getId() {
@@ -26,5 +31,21 @@ public class Opcionais {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public boolean isTemQuantidade() {
+        return temQuantidade;
+    }
+
+    public void setTemQuantidade(boolean temQuantidade) {
+        this.temQuantidade = temQuantidade;
     }
 }

@@ -17,6 +17,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <TituloPagina tituloPagina="Burguer do Davi" />
+  <TituloPagina tituloPagina="App Burguer" />
   <img src="../assets/burguerhome.jpg" alt="" class="w-full" >
 </template>

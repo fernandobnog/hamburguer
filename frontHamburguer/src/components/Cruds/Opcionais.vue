@@ -75,7 +75,8 @@ export default defineComponent({
       
       this.opcionais.id = objEditar.id;
       this.opcionais.tipo = objEditar.tipo;
-      console.log('objEditar:' + this.opcionais)
+      this.opcionais.quantidade = objEditar.quantidade;
+      this.opcionais.temQuantidade = objEditar.temQuantidade;
 
       await this.editarOpcionais(this.opcionais);
 
@@ -168,6 +169,8 @@ export default defineComponent({
     <div class="card mt-0">
       <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
           <InputText type="text" v-model="opcionais.tipo" placeholder="tipo" class="m-3 w-5"/>
+          <ToggleButton v-model="opcionais.temQuantidade" onLabel="Com quantidade" offLabel="Sem quantidade" class="m-3 w-5"/>
+          <InputText type="text" v-model="opcionais.quantidade" placeholder="tipo" class="m-3 w-5"/>
       </div>
       <div class="col-12 flex justify-content-center">
         <Button
@@ -185,7 +188,7 @@ export default defineComponent({
         >
           <Column field="id" header="ID"></Column>
           <Column field="tipo" header="TIPO"></Column>
-          <Column field="estoque" header="QTD"></Column>
+          <Column field="quantidade" header="QTD"></Column>
           <Column>
             <template #body="slotProps">
               <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="confirmarEditar(slotProps.data)" />
@@ -201,8 +204,10 @@ export default defineComponent({
       <h2 class="flex justify-content-center m-0">Editar Opcionais</h2>
       <div class="confirmation-content">
         <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
-          <div class="card">
+          <div class="card ">
             <InputText type="text" v-model="opcionaisPropsData.tipo" placeholder="tipo" class="m-3 w-5"/>
+          <ToggleButton v-model="opcionaisPropsData.temQuantidade" onLabel="Com quantidade" offLabel="Sem quantidade" class="m-3 w-5"/>
+          <InputText type="text" v-model="opcionaisPropsData.quantidade" placeholder="tipo" class="m-3 w-5"/>
           </div>
         </div>
       </div>

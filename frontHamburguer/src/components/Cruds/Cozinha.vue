@@ -88,7 +88,6 @@ export default defineComponent({
     },
     mounted() {
         this.listarPedido();
-        console.log(this.listaPedido)
 
     },
 });

@@ -75,7 +75,6 @@ export default defineComponent({
       
       this.salada.id = objEditar.id;
       this.salada.tipo = objEditar.tipo;
-      console.log('objEditar:' + this.salada)
 
       await this.editarSalada(this.salada);
 
