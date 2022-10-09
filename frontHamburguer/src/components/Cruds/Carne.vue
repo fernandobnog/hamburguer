@@ -167,8 +167,8 @@ export default defineComponent({
 <template>
     <div class="card mt-0">
       <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
-        <InputText type="text" placeholder="peso em gramas" v-model="carne.pesoGramas" class="m-3 w-5"/>
-        <InputText type="text" placeholder="quantidade" v-model="carne.estoque" class="m-3 w-5"/>
+        <InputText type="text" placeholder="peso em gramas" v-model="carne.pesoGramas" class="m-3 w-9"/>
+        <InputText type="text" placeholder="quantidade" v-model="carne.estoque" class="m-3 w-9"/>
       </div>
       <div class="col-12 flex justify-content-center">
         <Button
@@ -202,8 +202,8 @@ export default defineComponent({
       <h2 class="flex justify-content-center m-0">Editar Carne</h2>
       <div class="confirmation-content">
         <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
-          <InputText type="text" placeholder="peso em gramas" v-model="carnePropsData.pesoGramas" class="m-3 w-5"/>
-          <InputText type="text" placeholder="quantidade" v-model="carnePropsData.estoque" class="m-3 w-5"/>
+          <InputText type="text" placeholder="peso em gramas" v-model="carnePropsData.pesoGramas" class="m-3 w-9"/>
+          <InputText type="text" placeholder="quantidade" v-model="carnePropsData.estoque" class="m-3 w-9"/>
         </div>
       </div>
       <template #footer>

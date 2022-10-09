@@ -455,17 +455,17 @@ export default defineComponent({
           <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
             <h4 class="mb-0 mt-0">Pao</h4>
             <Listbox v-model="hamburguer.pao" :options="listaPao" optionLabel="tipo" placeholder="tipo"
-              class="m-3 w-17rem" />
+              class="my-1 w-17rem" />
             <h4 class="mb-0">Carne</h4>
-            <Listbox v-model="hamburguer.carne" :options="listaCarne" optionLabel="pesoGramas" class="m-3 w-17rem" />
+            <Listbox v-model="hamburguer.carne" :options="listaCarne" optionLabel="pesoGramas" class="my-1 w-17rem" />
             <h4 class="mb-0">Queijo</h4>
-            <Listbox v-model="hamburguer.queijo" :options="listaQueijo" optionLabel="tipo" class="m-3 w-17rem" />
+            <Listbox v-model="hamburguer.queijo" :options="listaQueijo" optionLabel="tipo" class="my-1 w-17rem" />
             <h4 class="mb-0">Saladas</h4>
             <Listbox v-model="hamburguer.saladas" :options="listaSalada" optionLabel="tipo" :multiple="true"
-              class="m-3 w-17rem" />
+              class="my-1 w-17rem" />
             <h4 class="mb-0">Opcionais</h4>
             <Listbox v-model="hamburguer.opcionais" :options="listaOpcionais" optionLabel="tipo" :multiple="true"
-              class="m-3 w-17rem" />
+              class="my-1 w-17rem" />
           </div>
         </div>
       </div>

@@ -1,0 +1,63 @@
+version: "3.9"
+services:
+
+#FRONTEND
+  web-hamburguer:
+    image: fernandonogueirant/hamburguer-frontend:latest
+    container_name: ${CONTAINER_WEB_NAME}
+    environment:
+      VITE_VUE_APP_IP_ADDRESS: http://${IP_SERVIDOR}:${JAVA_PORT}
+      VITE_VUE_APP_SERVER_PORT: ${WEB_PORT}
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    networks:
+      - hamburguer
+    depends_on:
+      - ${CONTAINER_BACKEND_NAME}
+    restart: always
+
+#DATABASE
+  db-hamburguer:
+    image: fernandonogueirant/hamburguer-mysql:latest
+    container_name: ${CONTAINER_DATA_BASE_NAME}
+    environment:
+     MYSQL_DATABASE: ${MYSQL_DATABASE}
+     MYSQL_USER: ${MYSQL_USER_PWD}
+     MYSQL_PASSWORD: ${MYSQL_USER_PWD}
+     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - hamburguer:/var/lib/mysql
+    ports:
+      - ${DB_PORT_TO_HOST}:${DB_PORT_SERVER}
+    expose:
+      - ${DB_PORT_SERVER}
+    networks:
+      - hamburguer
+    restart: always
+    command: --lower_case_table_names=1
+
+#BACKEND
+  java-hamburguer:
+    image: fernandonogueirant/hamburguer-backend:latest
+    container_name: ${CONTAINER_BACKEND_NAME}
+    environment:
+      DATASOURCE_URL: ${DATASOURCE_URL}${CONTAINER_DATA_BASE_NAME}:${DB_PORT_SERVER}/${MYSQL_DATABASE}
+      DATASOURCE_USERNAME: ${MYSQL_USER_PWD}
+      DATASOURCE_PASSWORD: ${MYSQL_USER_PWD}
+      SERVER_PORT: ${JAVA_PORT}
+    ports:
+      - "${JAVA_PORT}:${JAVA_PORT}"
+    networks:
+      - hamburguer
+    depends_on:
+      - ${CONTAINER_DATA_BASE_NAME}
+    restart: always
+
+#REDE
+networks:
+  hamburguer:
+    driver: bridge
+
+#PERSISTENCIA DB
+volumes:
+  hamburguer:

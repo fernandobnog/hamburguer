@@ -17,7 +17,7 @@ export default ({ mode }) => {
     },
     server:{
       host: '0.0.0.0',
-      port: 8071,
+      port: process.env.VITE_VUE_APP_SERVER_PORT,
     },
     IP_ADDRESS: process.env.VITE_VUE_APP_IP_ADDRESS,
   })

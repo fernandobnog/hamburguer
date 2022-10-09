@@ -166,7 +166,7 @@ export default defineComponent({
 <template>
     <div class="card mt-0">
       <div class="flex flex-wrap align-items-center justify-content-center mt-6">
-        <InputText type="text" v-model="salada.tipo" placeholder="tipo" class="m-3 w-5"/>
+        <InputText type="text" v-model="salada.tipo" placeholder="tipo" class="m-3 w-9"/>
       </div>
       <div class="col-12 flex justify-content-center">
         <Button
@@ -201,7 +201,7 @@ export default defineComponent({
       <div class="confirmation-content">
         <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
           <div class="card">
-            <InputText type="text" v-model="saladaPropsData.tipo" placeholder="tipo" class="m-3 w-5"/>
+            <InputText type="text" v-model="saladaPropsData.tipo" placeholder="tipo" class="m-3 w-9"/>
           </div>
         </div>
       </div>

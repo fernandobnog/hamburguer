@@ -168,9 +168,9 @@ export default defineComponent({
 <template>
     <div class="card mt-0">
       <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
-          <InputText type="text" v-model="opcionais.tipo" placeholder="tipo" class="m-3 w-5"/>
-          <ToggleButton v-model="opcionais.temQuantidade" onLabel="Com quantidade" offLabel="Sem quantidade" class="m-3 w-5"/>
-          <InputText type="text" v-model="opcionais.quantidade" placeholder="tipo" class="m-3 w-5"/>
+          <InputText type="text" v-model="opcionais.tipo" placeholder="tipo" class="m-3 w-9"/>
+          <ToggleButton v-model="opcionais.temQuantidade" onLabel="Com quantidade" offLabel="Sem quantidade" class="m-3 w-9"/>
+          <InputText v-if="opcionais.temQuantidade" type="text" v-model="opcionais.quantidade" placeholder="tipo" class="m-3 w-9"/>
       </div>
       <div class="col-12 flex justify-content-center">
         <Button
@@ -205,9 +205,9 @@ export default defineComponent({
       <div class="confirmation-content">
         <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
           <div class="card ">
-            <InputText type="text" v-model="opcionaisPropsData.tipo" placeholder="tipo" class="m-3 w-5"/>
-          <ToggleButton v-model="opcionaisPropsData.temQuantidade" onLabel="Com quantidade" offLabel="Sem quantidade" class="m-3 w-5"/>
-          <InputText type="text" v-model="opcionaisPropsData.quantidade" placeholder="tipo" class="m-3 w-5"/>
+            <InputText type="text" v-model="opcionaisPropsData.tipo" placeholder="tipo" class="m-3 w-9"/>
+          <ToggleButton v-model="opcionaisPropsData.temQuantidade" onLabel="Com quantidade" offLabel="Sem quantidade" class="m-3 w-9"/>
+          <InputText v-if="opcionais.temQuantidade" type="text" v-model="opcionais.quantidade" placeholder="tipo" class="m-3 w-9"/>
           </div>
         </div>
       </div>
