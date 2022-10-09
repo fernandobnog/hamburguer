@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { pedidoService } from '../service/pedido'
-import { errorType } from '../helpers/catchErrors';
 
 export const pedidoStore = defineStore('idPedidoStore', {
   state: () => ({

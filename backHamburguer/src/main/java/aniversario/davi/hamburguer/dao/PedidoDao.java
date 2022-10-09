@@ -42,6 +42,10 @@ public class PedidoDao {
 
     public Object inserir(Connection con, Pedido pedido) throws Exception {
 
+        if(pedido.getPessoa()==null){
+            throw new Exception("Obrigatório informar Pessoa");
+        }
+
         pedido.setHamburguer((Hamburguer) new HamburguerDao().inserir(con, pedido.getHamburguer()));
 
         String sql = "INSERT INTO PEDIDO (IDHAMBURGUER, IDPESSOA, STATUSPEDIDO) VALUES (?, ?, ?)";

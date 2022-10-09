@@ -38,6 +38,8 @@ import Toolbar from 'primevue/toolbar';
 import Listbox from 'primevue/listbox';
 import DataView from 'primevue/dataview';
 import Image from 'primevue/image';
+import Message from 'primevue/message';
+
 
 
 import 'primevue/resources/themes/vela-green/theme.css'
@@ -104,7 +106,7 @@ app.component('Toolbar', Toolbar);
 app.component('Listbox', Listbox);
 app.component('DataView', DataView);
 app.component('Image', Image);
-
+app.component('Message', Message);
 
 
 app.mount('#app')

@@ -528,6 +528,14 @@ public class HamburguerDao {
         queijoAtual.setEstoque(hamburguer.getQueijo().getEstoque()+1);
         new QueijoDao().editar(con, queijoAtual);
 
+        List<Opcionais> listaOpcionaisAtual = hamburguer.getOpcionais();
+        for(Opcionais opcionaisAtual : listaOpcionaisAtual){
+            if(opcionaisAtual.isTemQuantidade()){
+                opcionaisAtual.setQuantidade(opcionaisAtual.getQuantidade()+1);
+                new OpcionaisDao().editar(con, opcionaisAtual);
+            }
+        }
+
 
         String sql = "DELETE FROM HAMBURGUER WHERE ID = ?";
 

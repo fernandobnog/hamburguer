@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { cozinhaService } from '../service/cozinha'
-import { errorType } from '../helpers/catchErrors';
 
 export const cozinhaStore = defineStore('idCozinhaStore', {
   state: () => ({

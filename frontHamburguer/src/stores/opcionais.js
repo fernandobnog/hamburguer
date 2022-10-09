@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { opcionaisService } from '../service/opcionais'
-import { errorType } from '../helpers/catchErrors';
 
 export const opcionaisStore = defineStore('idOpcionaisStore', {
   state: () => ({
