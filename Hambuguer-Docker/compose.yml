@@ -14,7 +14,6 @@ services:
       - hamburguer
     depends_on:
       - ${CONTAINER_BACKEND_NAME}
-    restart: always
 
 #DATABASE
   db-hamburguer:
@@ -33,7 +32,6 @@ services:
       - ${DB_PORT_SERVER}
     networks:
       - hamburguer
-    restart: always
     command: --lower_case_table_names=1
 
 #BACKEND
@@ -51,7 +49,6 @@ services:
       - hamburguer
     depends_on:
       - ${CONTAINER_DATA_BASE_NAME}
-    restart: always
 
 #REDE
 networks:
