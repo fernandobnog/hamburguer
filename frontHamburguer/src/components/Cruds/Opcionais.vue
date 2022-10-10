@@ -207,7 +207,7 @@ export default defineComponent({
           <div class="card ">
             <InputText type="text" v-model="opcionaisPropsData.tipo" placeholder="tipo" class="m-3 w-9"/>
           <ToggleButton v-model="opcionaisPropsData.temQuantidade" onLabel="Com quantidade" offLabel="Sem quantidade" class="m-3 w-9"/>
-          <InputText v-if="opcionais.temQuantidade" type="text" v-model="opcionais.quantidade" placeholder="tipo" class="m-3 w-9"/>
+          <InputText v-if="opcionaisPropsData.temQuantidade" type="text" v-model="opcionaisPropsData.quantidade" placeholder="tipo" class="m-3 w-9"/>
           </div>
         </div>
       </div>

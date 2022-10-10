@@ -44,6 +44,9 @@ export const opcionaisStore = defineStore('idOpcionaisStore', {
     },
 
     async salvarOpcionais() {
+      if(!this.opcionais.temQuantidade){
+        this.opcionais.quantidade = 0;
+      }
       try {
         const res = await opcionaisService.insert(this.opcionais);
         this.statusServer.status = res.data.status;
@@ -68,6 +71,9 @@ export const opcionaisStore = defineStore('idOpcionaisStore', {
     },
     
     async editarOpcionais(opcionaisV) {
+      if(!opcionaisV.temQuantidade){
+        opcionaisV.quantidade = 0;
+      }
       try {
         const res = await opcionaisService.edit(opcionaisV);
         this.statusServer.status = res.data.status;
@@ -119,7 +125,9 @@ export const opcionaisStore = defineStore('idOpcionaisStore', {
     resetOpcionais() {
       return (
         this.opcionais.id = 0,
-        this.opcionais.tipo = ''
+        this.opcionais.tipo = '',
+        this.opcionais.quantidade = 0,
+        this.opcionais.temQuantidade = false
       )
     }
   }
