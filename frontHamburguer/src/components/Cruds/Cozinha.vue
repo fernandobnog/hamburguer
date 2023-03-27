@@ -10,6 +10,8 @@ export default defineComponent({
     return {
       stringOpcionais: '',
       stringSaladas: '',
+      listaPedidosLocal: [],
+      filtro: false,
     };
   },
   computed: {
@@ -32,7 +34,11 @@ export default defineComponent({
 
 
     async mudarPedido(pedidoV) {
-      await this.editarPedido(pedidoV);
+      await this.listarPedido();
+      let pedido = this.listaPedido.find((pedido) => pedido.id == pedidoV.id)
+      pedido.statusPedido = pedidoV.statusPedido;
+      console.log(pedido);
+      await this.editarPedido(pedido);
 
       if (this.statusServer.status == "OK") {
         this.$toast.add({
@@ -63,7 +69,7 @@ export default defineComponent({
         });
       }
 
-      this.listarPedido();
+      this.montarListaLocal();
 
       this.resetPedido();
 
@@ -86,21 +92,47 @@ export default defineComponent({
 
     },
 
+    async montarListaLocal() {
+      await this.listarPedido();
+      this.listaPedidosLocal = Object.assign([], this.listaPedido);
+      this.listaPedidosLocal.forEach((pedido) => {
+        pedido.hamburguer.saladas = this.formatSaladas(pedido.hamburguer.saladas);
+        pedido.hamburguer.opcionais = this.formatOpcionais(pedido.hamburguer.opcionais);
+      })
+    },
+    filtrarLista() {
+      if (this.filtro) {
+        this.listaPedidosLocal = this.listaPedidosLocal.filter((pedido) => pedido.statusPedido == false);
+      } else {
+        this.montarListaLocal();
+      }
+    }
+
   },
-  mounted() {},
+  mounted() {
+    this.montarListaLocal();
+  },
 });
 </script>
 <template>
   <div class="card mt-0">
-    <Button label="Atualizar Pedidos"  @click="listarPedido"/>
+    <Button class="m-3" label="Atualizar Pedidos" @click="listarPedido" />
+    <ToggleButton class="m-3" v-model="filtro" onLabel="Pendentes" offLabel="Todos" @click="filtrarLista()" />
     <div class="flex flex-wrap align-items-center justify-content-center mt-6">
-      <DataTable class="w-12" :value="listaPedido" responsiveLayout="scroll" sortMode="multiple" removableSort>
-        <Column rowReorder headerStyle="width: 3rem" :reorderableColumn="false" />
-        <Column field="pessoa.nome" sortable header="NOME"></Column>
-        <Column field="hamburguer.pao.tipo" header="PÃO"></Column>
-        <Column field="hamburguer.carne.pesoGramas" sortable header="CARNE (gramas)"></Column>
+      <DataTable class="w-12" :value="listaPedidosLocal" responsiveLayout="scroll" removableSort>
+        <Column field="pessoa.nome" header="NOME" sortable></Column>
+        <Column field="hamburguer.pao.tipo" header="PÃO" sortable></Column>
+        <Column field="hamburguer.carne.pesoGramas" header="CARNE (gramas)" sortable></Column>
         <Column field="hamburguer.queijo.tipo" header="QUEIJO"></Column>
 
+        <Column field="hamburguer.saladas" header="SALADAS"></Column>
+        <Column field="hamburguer.opcionais" header="OPCIONAIS"></Column>
+        <Column field="statusPedido" header="STATUS" sortable>
+          <template #body="slotProps">
+            <ToggleButton v-model="slotProps.data.statusPedido" onLabel="Feito" offLabel="Pendente" onIcon="pi pi-check"
+              offIcon="pi pi-times" @click="mudarPedido(slotProps.data)" />
+          </template>
+        </Column>
       </DataTable>
     </div>
   </div>
