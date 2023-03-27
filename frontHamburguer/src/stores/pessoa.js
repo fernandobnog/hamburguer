@@ -17,12 +17,6 @@ export const pessoaStore = defineStore('idPessoaStore', {
     pessoaRetorno: {},
   }),
 
-  getters: {
-    getPessoa: state => {
-      return state.pessoa;
-    }
-  },
-
   actions: {
     async listarPessoa() {
       try {

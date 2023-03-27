@@ -19,12 +19,6 @@ export const opcionaisStore = defineStore('idOpcionaisStore', {
     opcionaisRetorno: {},
   }),
 
-  getters: {
-    getOpcionais: state => {
-      return state.opcionais;
-    }
-  },
-
   actions: {
     async listarOpcionais() {
       try {

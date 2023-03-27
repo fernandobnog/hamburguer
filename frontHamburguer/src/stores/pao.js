@@ -18,12 +18,6 @@ export const paoStore = defineStore('idPaoStore', {
     paoRetorno: {},
   }),
 
-  getters: {
-    getPao: state => {
-      return state.pao;
-    }
-  },
-
   actions: {
     async listarPao() {
       try {
@@ -64,7 +58,7 @@ export const paoStore = defineStore('idPaoStore', {
         console.log(error);
       }
     },
-    
+
     async editarPao(paoV) {
       try {
         const res = await paoService.edit(paoV);
@@ -89,7 +83,7 @@ export const paoStore = defineStore('idPaoStore', {
       }
     },
 
-    
+
     async deletarPao(paoV) {
       try {
         const res = await paoService.delete(paoV);

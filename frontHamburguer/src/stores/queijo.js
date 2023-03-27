@@ -17,12 +17,6 @@ export const queijoStore = defineStore('idQueijoStore', {
     queijoRetorno: {},
   }),
 
-  getters: {
-    getQueijo: state => {
-      return state.queijo;
-    }
-  },
-
   actions: {
     async listarQueijo() {
       try {

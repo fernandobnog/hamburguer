@@ -17,12 +17,6 @@ export const saladaStore = defineStore('idSaladaStore', {
     saladaRetorno: {},
   }),
 
-  getters: {
-    getSalada: state => {
-      return state.salada;
-    }
-  },
-
   actions: {
     async listarSalada() {
       try {

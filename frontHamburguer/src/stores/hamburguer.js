@@ -21,12 +21,6 @@ export const hamburguerStore = defineStore('idHamburguerStore', {
     hamburguerRetorno: {},
   }),
 
-  getters: {
-    getHamburguer: state => {
-      return state.hamburguer;
-    }
-  },
-
   actions: {
     async listarHamburguer() {
       try {

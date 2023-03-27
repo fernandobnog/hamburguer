@@ -19,26 +19,11 @@ export const pedidoStore = defineStore('idPedidoStore', {
     pedidoRetorno: {},
   }),
 
-  getters: {
-    getPedido: state => {
-      return state.pedido;
-    }
-  },
-
   actions: {
-
     async listarPedido() {
       try {
         const res = await pedidoService.list();
-        this.listaPedido = res.data.object;
-        this.listaPedido = this.listaPedido.map(pedido => {
-          return {
-            id: pedido.id,
-            pessoa: pedido.pessoa,
-            hamburguer: pedido.hamburguer,
-            statusPedido: pedido.statusPedido
-          }
-        })
+        this.listaPedido = res.data.object
       } catch (error) {
         console.error(error);
       }
@@ -67,7 +52,7 @@ export const pedidoStore = defineStore('idPedidoStore', {
         console.log(error);
       }
     },
-    
+
     async editarPedido(pedidoV) {
       try {
         const res = await pedidoService.edit(pedidoV);
@@ -92,7 +77,7 @@ export const pedidoStore = defineStore('idPedidoStore', {
       }
     },
 
-    
+
     async deletarPedido(pedidoV) {
       try {
         const res = await pedidoService.delete(pedidoV);

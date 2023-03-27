@@ -179,22 +179,22 @@ export default defineComponent({
     },
 
     verificarEstoque() {
-      if(this.hamburguer.pao.estoque == 0){
+      if (this.hamburguer.pao != null && this.hamburguer.pao.estoque == 0) {
         this.alertaEstoque = this.alertaEstoque + "pão " + this.hamburguer.pao.tipo;
         this.alertaEstoque = true;
         return false
       }
-      if(this.hamburguer.carne.estoque == 0){
+      if (this.hamburguer.carne != null && this.hamburguer.carne.estoque == 0) {
         this.alertaEstoque = this.alertaEstoque + "carne " + this.hamburguer.carne.pesoGramas;
         this.verAlertaEstoque = true;
         return false
       }
-      if(this.hamburguer.queijo.estoque == 0){
+      if (this.hamburguer.queijo != null && this.hamburguer.queijo.estoque == 0) {
         this.alertaEstoque = this.alertaEstoque + "queijo " + this.hamburguer.queijo.tipo;
         this.verAlertaEstoque = true;
         return false
       }
-      if(this.hamburguer.opcionais.quantidade == 0 && this.hamburguer.opcionais.temQuantidade){
+      if (this.hamburguer.opcionais != null && this.hamburguer.opcionais.quantidade == 0 && this.hamburguer.opcionais.temQuantidade) {
         this.alertaEstoque = this.alertaEstoque + this.hamburguer.opcionais.tipo;
         this.verAlertaEstoque = true;
         return false
@@ -236,8 +236,8 @@ export default defineComponent({
         this.listarPedido();
         this.resetPedido();
         this.resetHamburguer();
-        this.displayCriarHamburguer=false;
-        this.alertaEstoque="";
+        this.displayCriarHamburguer = false;
+        this.alertaEstoque = "";
       }
     },
 
@@ -308,50 +308,50 @@ export default defineComponent({
     },
 
     async mudarHamburguer() {
-      await this.editarHamburguer(this.hamburguer);
+      if (this.verificarEstoque()) {
+        await this.editarHamburguer(this.hamburguer);
 
-      if (this.statusServer.status == "OK") {
-        this.$toast.add({
-          severity: "success",
-          summary: "Editado com Sucesso",
-          detail: "Hamburguer Editado no banco de dados",
-          life: 3000,
-        });
+        if (this.statusServer.status == "OK") {
+          this.$toast.add({
+            severity: "success",
+            summary: "Editado com Sucesso",
+            detail: "Hamburguer Editado no banco de dados",
+            life: 3000,
+          });
 
-        this.$emit('editedHamburguer');
+          this.$emit('editedHamburguer');
+        }
+
+        if (this.statusServer.status == "Alerta") {
+          this.$toast.add({
+            severity: "warn",
+            summary: "Aviso!",
+            detail: this.statusServer.mensagem,
+            life: 8000,
+          });
+        }
+
+        if (this.statusServer.status == "Erro") {
+          this.$toast.add({
+            severity: "error",
+            summary: "Erro ao salvar",
+            detail: this.statusServer.mensagem,
+            life: 8000,
+          });
+        }
+
+        this.pedidoEditar.id = this.pedido.id;
+        this.pedidoEditar.pessoa = this.pessoa;
+        this.pedidoEditar.hamburguer = this.hamburguerRetorno
+
+        this.displayDetalhePedido = !this.displayDetalhePedido;
+
+        this.detalhesPedido(this.pedidoEditar)
+
+        this.listarPedido();
+        this.hamburguerPropsData = null;
+        this.resetHamburguer()
       }
-
-      if (this.statusServer.status == "Alerta") {
-        this.$toast.add({
-          severity: "warn",
-          summary: "Aviso!",
-          detail: this.statusServer.mensagem,
-          life: 8000,
-        });
-      }
-
-      if (this.statusServer.status == "Erro") {
-        this.$toast.add({
-          severity: "error",
-          summary: "Erro ao salvar",
-          detail: this.statusServer.mensagem,
-          life: 8000,
-        });
-      }
-
-      this.pedidoEditar.id = this.pedido.id;
-      this.pedidoEditar.pessoa = this.pessoa;
-      this.pedidoEditar.hamburguer = this.hamburguerRetorno
-
-      this.displayDetalhePedido = !this.displayDetalhePedido;
-
-      this.detalhesPedido(this.pedidoEditar)
-
-
-      this.listarPedido();
-      this.hamburguerPropsData = null;
-      this.resetHamburguer()
-
     },
 
 
@@ -415,7 +415,7 @@ export default defineComponent({
   </div>
   <div class="card mt-0">
     <div class="flex flex-wrap align-items-center justify-content-center mt-6">
-      <DataTable :style="{width: '350px'}" :value="listaPedido" responsiveLayout="scroll">
+      <DataTable :style="{ width: '350px' }" :value="listaPedido" responsiveLayout="scroll">
         <Column field="pessoa.nome" header="Nome"></Column>
         <Column field="hamburguer.id" header="ID.BURGUER"></Column>
         <Column>
@@ -429,7 +429,7 @@ export default defineComponent({
   </div>
 
 
-  <Dialog v-model:visible="displayCriarPessoa" :style="{width: '450px'}" :modal="true" :closable="false">
+  <Dialog v-model:visible="displayCriarPessoa" :style="{ width: '450px' }" :modal="true" :closable="false">
     <h2 class="flex justify-content-center m-0">Adicionar Pessoa</h2>
     <div class="confirmation-content">
       <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
@@ -442,13 +442,13 @@ export default defineComponent({
     </div>
     <template #footer>
       <Button label="Sair" icon="pi pi-check" class="p-button-text"
-        @click="sairPessoa(pessoaRetorno), displayEditar=false" />
+        @click="sairPessoa(pessoaRetorno), displayEditar = false" />
     </template>
   </Dialog>
 
   <Dialog v-model:visible="displayCriarHamburguer" class="w-10" :modal="true" :closable="false">
     <h2 class="flex justify-content-center m-0">Montrar Hamburguer</h2>
-    <Message v-if="this.verAlertaEstoque" severity="error" >{{this.alertaEstoque}}</Message>
+    <Message v-if="this.verAlertaEstoque" severity="error">{{ this.alertaEstoque }}</Message>
     <div class="confirmation-content">
       <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
         <div class="card mt-0">
@@ -471,57 +471,56 @@ export default defineComponent({
       </div>
     </div>
     <template #footer>
-      <Button label="Não" icon="pi pi-times" class="p-button-text" @click="displayCriarHamburguer=false" />
-      <Button label="Sim" icon="pi pi-check" class="p-button-text"
-        @click="cadastrarPedido()" />
-            
+      <Button label="Não" icon="pi pi-times" class="p-button-text" @click="displayCriarHamburguer = false" />
+      <Button label="Sim" icon="pi pi-check" class="p-button-text" @click="cadastrarPedido()" />
+
     </template>
   </Dialog>
 
-  <Dialog v-model:visible="displayDetalhePedido" :style="{width: '450px'}" :modal="true" :closable="false">
+  <Dialog v-model:visible="displayDetalhePedido" :style="{ width: '450px' }" :modal="true" :closable="false">
     <h2 class="flex justify-content-center m-0">Detalhes Pedido</h2>
     <div class="card justify-content-center">
       <div class="flex flex-wrap justify-content-center card-container" style="max-width: 500px">
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
           <div><b>Pessoa:</b> &ensp;</div>
-          <div>{{pedido.pessoa.nome}}</div>
+          <div>{{ pedido.pessoa.nome }}</div>
         </div>
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
           <div><b>Pão:</b> &ensp;</div>
-          <div>{{pedido.hamburguer.pao.tipo}}</div>
+          <div>{{ pedido.hamburguer.pao.tipo }}</div>
         </div>
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
           <div><b>Carne:</b> &ensp;</div>
-          <div>{{pedido.hamburguer.carne.pesoGramas}} g</div>
+          <div>{{ pedido.hamburguer.carne.pesoGramas }} g</div>
         </div>
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
           <div><b>Queijo:</b> &ensp;</div>
-          <div>{{pedido.hamburguer.queijo.tipo}}</div>
+          <div>{{ pedido.hamburguer.queijo.tipo }}</div>
         </div>
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
           <div><b>Saladas:</b> &ensp;</div>
-          <div>{{stringSaladas}}</div>
+          <div>{{ stringSaladas }}</div>
         </div>
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
           <div><b>Opcionais:</b> &ensp;</div>
-          <div>{{stringOpcionais}}</div>
+          <div>{{ stringOpcionais }}</div>
         </div>
       </div>
     </div>
     <template #footer>
       <Button label="Excluir" class="p-button-text" @click="confirmarExcluir()" />
-      <Button label="Editar" class="p-button-text" @click="confirmarEditar(), displayEditar=true" />
-      <Button label="Sair" class="p-button-text" @click="displayDetalhePedido=false" />
+      <Button label="Editar" class="p-button-text" @click="confirmarEditar(), displayEditar = true" />
+      <Button label="Sair" class="p-button-text" @click="displayDetalhePedido = false" />
     </template>
   </Dialog>
 
-  <Dialog v-model:visible="displayEditar" :style="{width: '450px'}" :modal="true" :closable="false">
+  <Dialog v-model:visible="displayEditar" :style="{ width: '450px' }" :modal="true" :closable="false">
     <h2 class="flex justify-content-center m-0">Editar Hamburguer</h2>
     <div class="confirmation-content">
       <div class="flex flex-wrap flex-column align-items-center justify-content-center mt-6">
@@ -545,24 +544,23 @@ export default defineComponent({
       </div>
     </div>
     <template #footer>
-      <Button label="Não" icon="pi pi-times" class="p-button-text" @click="displayEditar=false" />
-      <Button label="Sim" icon="pi pi-check" class="p-button-text" @click="mudarHamburguer(), displayEditar=false" />
+      <Button label="Não" icon="pi pi-times" class="p-button-text" @click="displayEditar = false" />
+      <Button label="Sim" icon="pi pi-check" class="p-button-text" @click="mudarHamburguer(), displayEditar = false" />
     </template>
   </Dialog>
 
-  <Dialog v-model:visible="displayExcluir" :style="{width: '450px'}" :modal="true" :closable="false">
+  <Dialog v-model:visible="displayExcluir" :style="{ width: '450px' }" :modal="true" :closable="false">
     <h2 class="flex justify-content-center m-0">Excluir Pedido</h2>
     <div class="confirmation-content">
       <div class="flex flex-wrap align-items-center justify-content-center mt-6">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-        <div>Excluir pedido de : '<b>{{pedido.pessoa.nome}}</b>' ?</div>
+        <div>Excluir pedido de : '<b>{{ pedido.pessoa.nome }}</b>' ?</div>
       </div>
     </div>
     <template #footer>
-      <Button label="Não" icon="pi pi-times" class="p-button-text" @click="displayExcluir=false" />
+      <Button label="Não" icon="pi pi-times" class="p-button-text" @click="displayExcluir = false" />
       <Button label="Sim" icon="pi pi-check" class="p-button-text"
-        @click="excluirPedido(pedido), displayExcluir=false, displayDetalhePedido=false" />
+        @click="excluirPedido(pedido), displayExcluir = false, displayDetalhePedido = false" />
     </template>
   </Dialog>
-
 </template>

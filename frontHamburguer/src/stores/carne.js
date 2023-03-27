@@ -18,12 +18,6 @@ export const carneStore = defineStore('idCarneStore', {
     carneRetorno: {},
   }),
 
-  getters: {
-    getCarne: state => {
-      return state.carne;
-    }
-  },
-
   actions: {
     async listarCarne() {
       try {

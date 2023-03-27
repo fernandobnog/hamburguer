@@ -1,9 +1,13 @@
 <script>
 import { defineComponent } from "vue";
+import Navbar from "./Navbar.vue";
 
 export default defineComponent({
   props: {
     tituloPagina: String
+  },
+  components: {
+    Navbar,
   },
 
   data() {
@@ -23,11 +27,12 @@ export default defineComponent({
 </script>
 
 <template>
-   <div :class="classes">
-      <h2 class="text-700">
-        {{ tituloPagina }}
-      </h2>
-    </div>
+  <Navbar />
+  <div :class="classes">
+    <h2 class="text-700">
+      {{ tituloPagina }}
+    </h2>
+  </div>
 </template>
 
 <style>
