@@ -179,17 +179,17 @@ export default defineComponent({
     },
 
     verificarEstoque() {
-      if (this.hamburguer.pao != null && this.hamburguer.pao.estoque == 0) {
+      if (this.hamburguer.pao != null && this.hamburguer.pao.estoque == 0 && this.hamburguer.pao.tipo != null) {
         this.alertaEstoque = this.alertaEstoque + "pão " + this.hamburguer.pao.tipo;
         this.alertaEstoque = true;
         return false
       }
-      if (this.hamburguer.carne != null && this.hamburguer.carne.estoque == 0) {
+      if (this.hamburguer.carne != null && this.hamburguer.carne.estoque == 0 && this.hamburguer.carne.pesoGramas != 0) {
         this.alertaEstoque = this.alertaEstoque + "carne " + this.hamburguer.carne.pesoGramas;
         this.verAlertaEstoque = true;
         return false
       }
-      if (this.hamburguer.queijo != null && this.hamburguer.queijo.estoque == 0) {
+      if (this.hamburguer.queijo != null && this.hamburguer.queijo.estoque == 0 && this.hamburguer.queijo.tipo != null) {
         this.alertaEstoque = this.alertaEstoque + "queijo " + this.hamburguer.queijo.tipo;
         this.verAlertaEstoque = true;
         return false
@@ -359,6 +359,12 @@ export default defineComponent({
       this.displayExcluir = !this.displayExcluir
     },
 
+    sairDetalhePedido() {
+      this.resetPessoa();
+      this.resetHamburguer();
+      this.displayDetalhePedido = !this.displayDetalhePedido;
+    },
+
 
     async excluirPedido(obj) {
       this.pedido.id = obj.id;
@@ -494,7 +500,7 @@ export default defineComponent({
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
           <div><b>Carne:</b> &ensp;</div>
-          <div>{{ pedido.hamburguer.carne.pesoGramas }} g</div>
+          <div v-if="pedido.hamburguer.carne.pesoGramas != 0">{{ pedido.hamburguer.carne.pesoGramas }} g</div>
         </div>
         <div class="flex align-items-center justify-content-center bg-blue-100 text-gray-900 m-2 border-round"
           style="width: 200px; min-height: 40px">
@@ -516,7 +522,7 @@ export default defineComponent({
     <template #footer>
       <Button label="Excluir" class="p-button-text" @click="confirmarExcluir()" />
       <Button label="Editar" class="p-button-text" @click="confirmarEditar(), displayEditar = true" />
-      <Button label="Sair" class="p-button-text" @click="displayDetalhePedido = false" />
+      <Button label="Sair" class="p-button-text" @click="sairDetalhePedido()" />
     </template>
   </Dialog>
 

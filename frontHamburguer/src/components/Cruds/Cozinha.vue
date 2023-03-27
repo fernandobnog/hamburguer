@@ -119,7 +119,7 @@ export default defineComponent({
     <Button class="m-3" label="Atualizar Pedidos" @click="listarPedido" />
     <ToggleButton class="m-3" v-model="filtro" onLabel="Pendentes" offLabel="Todos" @click="filtrarLista()" />
     <div class="flex flex-wrap align-items-center justify-content-center mt-6">
-      <DataTable class="w-12" :value="listaPedidosLocal" responsiveLayout="scroll" removableSort>
+      <DataTable class="w-12" :value="listaPedidosLocal" responsiveLayout="scroll" removableSort selectionMode="single">
         <Column field="pessoa.nome" header="NOME" sortable></Column>
         <Column field="hamburguer.pao.tipo" header="PÃO" sortable></Column>
         <Column field="hamburguer.carne.pesoGramas" header="CARNE (gramas)" sortable></Column>
